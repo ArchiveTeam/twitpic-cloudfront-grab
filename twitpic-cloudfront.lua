@@ -6,7 +6,23 @@ local item_value = os.getenv('item_value')
 local downloaded = {}
 
 wget.callbacks.get_urls = function(file, url, is_css, iri)
+  local statuscode = httploop_result["http_stat"]["statcode"]
   local urls = {}
+  
+  if (string.match(url, "%.jpg") and statuscode ~= 200) then
+    local pngurl = string.gsub(url, "%.jpg", "%.png")
+    if downloaded[pngurl] ~= true then
+      table.insert(urls, { url=pngurl })
+    end
+  elseif (string.match(url, "%.png") and statuscode ~= 200) then
+    local gifurl = string.gsub(url, "%.png", "%.gif")
+    if downloaded[gifurl] ~= true then
+      table.insert(urls, { url=gifurl })
+    end
+--  Working on this!
+--  elseif (string.match(url, "%.gif") and statuscode ~= 200) then
+--    local
+  end
   
   return urls
 end
