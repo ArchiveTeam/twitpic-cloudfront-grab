@@ -63,7 +63,7 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
       io.stdout:write("\nServer returned "..http_stat.statcode.." for " .. url["url"] .. ". Sleeping.\n")
       io.stdout:flush()
       
-      os.execute("sleep 10")
+      os.execute("sleep 1")
       
       tries = tries + 1
       
@@ -76,7 +76,7 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
       io.stdout:write("\nServer returned "..http_stat.statcode.." for " .. url["url"] .. ". Sleeping.\n")
       io.stdout:flush()
       
-      os.execute("sleep 10")
+      os.execute("sleep 1")
       
       tries = tries + 1
       
@@ -90,7 +90,7 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
     io.stdout:write("\nServer returned "..http_stat.statcode.." for " .. url["url"] .. ". Sleeping.\n")
     io.stdout:flush()
     
-    os.execute("sleep 10")
+    os.execute("sleep 1")
     
     tries = tries + 1
     
