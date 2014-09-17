@@ -207,7 +207,7 @@ class WgetArgs(object):
             
             for args in [('https://d3j5vwomefv46c.cloudfront.net/photos/large/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c), \
                           'https://d3j5vwomefv46c.cloudfront.net/photos/thumb/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c), \
-                          'https://d3j5vwomefv46c.cloudfront.net/photos/video/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c), \
+                          'https://d3j5vwomefv46c.cloudfront.net/photos/video/{0}{1}{2}{3}.mp4'.format(item_value, a, b, c), \
                           'https://d3j5vwomefv46c.cloudfront.net/photos/mini/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c)) for a in suffixesa for b in suffixesb for c in suffixesc]:
                 wget_args.append(args[0])
                 wget_args.append(args[1])
