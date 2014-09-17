@@ -214,6 +214,12 @@ class WgetArgs(object):
                 wget_args.append(args[2])
                 wget_args.append(args[3])
                 
+        elif item_type == 'singleimage':
+            wget_args.append('http://d3j5vwomefv46c.cloudfront.net/photos/large/{0}.jpg'.format(item_value))
+            wget_args.append('http://d3j5vwomefv46c.cloudfront.net/photos/thumb/{0}.jpg'.format(item_value))
+            wget_args.append('http://d3j5vwomefv46c.cloudfront.net/photos/video/{0}.jpg'.format(item_value))
+            wget_args.append('http://d3j5vwomefv46c.cloudfront.net/photos/mini/{0}.jpg'.format(item_value))
+            
         if 'bind_address' in globals():
             wget_args.extend(['--bind-address', globals()['bind_address']])
             print('')
