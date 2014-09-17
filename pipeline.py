@@ -212,6 +212,7 @@ class WgetArgs(object):
                 wget_args.append(args[0])
                 wget_args.append(args[1])
                 wget_args.append(args[2])
+                wget_args.append(args[3])
                 
         if 'bind_address' in globals():
             wget_args.extend(['--bind-address', globals()['bind_address']])
