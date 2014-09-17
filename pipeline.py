@@ -241,7 +241,7 @@ project = Project(
         <h2>d3j5vwomefv46c.cloudfront.net <span class="links"><a href="https://d3j5vwomefv46c.cloudfront.net/">Website</a> &middot; <a href="http://tracker.archiveteam.org/twitpic-cloudfront/">Leaderboard</a></span></h2>
         <p>Archiving images from twitpic.com on d3j5vwomefv46c.cloudfront.net.</p>
     """,
-    utc_deadline=datetime.datetime(2014, 8, 25, 23, 59, 0)
+    utc_deadline=datetime.datetime(2014, 9, 25, 23, 59, 0)
 )
 
 pipeline = Pipeline(
