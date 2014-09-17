@@ -57,7 +57,7 @@ if not WGET_LUA:
 #
 # Update this each time you make a non-cosmetic change.
 # It will be added to the WARC files and reported to the tracker.
-VERSION = "20140917.02"
+VERSION = "20140917.03"
 USER_AGENT = 'ArchiveTeam'
 TRACKER_ID = 'twitpic-cloudfront'
 TRACKER_HOST = 'tracker.archiveteam.org'
@@ -205,10 +205,10 @@ class WgetArgs(object):
             suffixesb = string.digits
             suffixesc = string.digits
             
-            for args in [('https://d3j5vwomefv46c.cloudfront.net/photos/large/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c), \
-                          'https://d3j5vwomefv46c.cloudfront.net/photos/thumb/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c), \
-                          'https://d3j5vwomefv46c.cloudfront.net/photos/video/{0}{1}{2}{3}.mp4'.format(item_value, a, b, c), \
-                          'https://d3j5vwomefv46c.cloudfront.net/photos/mini/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c)) for a in suffixesa for b in suffixesb for c in suffixesc]:
+            for args in [('http://d3j5vwomefv46c.cloudfront.net/photos/large/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c), \
+                          'http://d3j5vwomefv46c.cloudfront.net/photos/thumb/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c), \
+                          'http://d3j5vwomefv46c.cloudfront.net/photos/video/{0}{1}{2}{3}.mp4'.format(item_value, a, b, c), \
+                          'http://d3j5vwomefv46c.cloudfront.net/photos/mini/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c)) for a in suffixesa for b in suffixesb for c in suffixesc]:
                 wget_args.append(args[0])
                 wget_args.append(args[1])
                 wget_args.append(args[2])
