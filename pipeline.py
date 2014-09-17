@@ -57,9 +57,9 @@ if not WGET_LUA:
 #
 # Update this each time you make a non-cosmetic change.
 # It will be added to the WARC files and reported to the tracker.
-VERSION = "20140914.01"
+VERSION = "20140917.01"
 USER_AGENT = 'ArchiveTeam'
-TRACKER_ID = 'quizilla'
+TRACKER_ID = 'twitpic-cloudfront'
 TRACKER_HOST = 'tracker.archiveteam.org'
 
 
@@ -146,7 +146,7 @@ def get_hash(filename):
 
 CWD = os.getcwd()
 PIPELINE_SHA1 = get_hash(os.path.join(CWD, 'pipeline.py'))
-LUA_SHA1 = get_hash(os.path.join(CWD, 'quizilla.lua'))
+LUA_SHA1 = get_hash(os.path.join(CWD, 'twitpic-cloudfront.lua'))
 
 
 def stats_id_function(item):
@@ -166,7 +166,7 @@ class WgetArgs(object):
             WGET_LUA,
             "-U", USER_AGENT,
             "-nv",
-            "--lua-script", "quizilla.lua",
+            "--lua-script", "twitpic-cloudfront.lua",
             "-o", ItemInterpolation("%(item_dir)s/wget.log"),
             "--no-check-certificate",
             "--output-document", ItemInterpolation("%(item_dir)s/wget.tmp"),
@@ -181,11 +181,11 @@ class WgetArgs(object):
             "--tries", "inf",
             "--span-hosts",
             "--waitretry", "30",
-            "--domains", "quizilla.teennick.com",
+            "--domains", "d3j5vwomefv46c.cloudfront.net",
             "--warc-file", ItemInterpolation("%(item_dir)s/%(warc_file_base)s"),
             "--warc-header", "operator: Archive Team",
-            "--warc-header", "quizilla-dld-script-version: " + VERSION,
-            "--warc-header", ItemInterpolation("quizilla-user: %(item_name)s"),
+            "--warc-header", "twitpic-cloudfront-dld-script-version: " + VERSION,
+            "--warc-header", ItemInterpolation("twitpic-cloudfront-user: %(item_name)s"),
         ]
 
         item_name = item['item_name']
@@ -198,23 +198,19 @@ class WgetArgs(object):
         item['item_type'] = item_type
         item['item_value'] = item_value
         
-        assert item_type in ('page')
+        assert item_type in ('image')
 
-        if item_type == 'page':
-#            wget_args.append('http://quizilla.teennick.com/')
+        if item_type == 'image':
             suffixesa = string.digits
             suffixesb = string.digits
+            suffixesc = string.digits
             
-            for args in [('http://quizilla.teennick.com/quizzes/{0}{1}'.format(item_value, a), \
-                          'http://quizilla.teennick.com/stories/{0}{1}'.format(item_value, a), \
-                          'http://quizilla.teennick.com/polls/{0}{1}'.format(item_value, a), \
-                          'http://quizilla.teennick.com/poems/{0}{1}'.format(item_value, a), \
-                          'http://quizilla.teennick.com/lyrics/{0}{1}'.format(item_value, a)) for a in suffixesa]:
+            for args in [('https://d3j5vwomefv46c.cloudfront.net/photos/large/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c), \
+                          'https://d3j5vwomefv46c.cloudfront.net/photos/thumb/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c), \
+                          'https://d3j5vwomefv46c.cloudfront.net/photos/mini/{0}{1}{2}{3}.jpg'.format(item_value, a, b, c)) for a in suffixesa for b in suffixesb for c in suffixesc]:
                 wget_args.append(args[0])
                 wget_args.append(args[1])
                 wget_args.append(args[2])
-                wget_args.append(args[3])
-                wget_args.append(args[4])
                 
         if 'bind_address' in globals():
             wget_args.extend(['--bind-address', globals()['bind_address']])
@@ -231,20 +227,20 @@ class WgetArgs(object):
 # This will be shown in the warrior management panel. The logo should not
 # be too big. The deadline is optional.
 project = Project(
-    title="Quizilla",
+    title="Twitpic Cloudfront",
     project_html="""
-        <img class="project-logo" alt="Project logo" src="http://archiveteam.org/images/5/5a/Quizilla_logo.png" height="50px" title=""/>
-        <h2>quizilla.teennick.com <span class="links"><a href="http://quizilla.teennick.com/">Website</a> &middot; <a href="http://tracker.archiveteam.org/quizilla/">Leaderboard</a></span></h2>
-        <p>Archiving pages from quizilla.teennick.com.</p>
+        <img class="project-logo" alt="Project logo" src="http://archiveteam.org/images/6/68/Twitpic-logo.png" height="50px" title=""/>
+        <h2>d3j5vwomefv46c.cloudfront.net <span class="links"><a href="https://d3j5vwomefv46c.cloudfront.net/">Website</a> &middot; <a href="http://tracker.archiveteam.org/twitpic-cloudfront/">Leaderboard</a></span></h2>
+        <p>Archiving images from twitpic.com on d3j5vwomefv46c.cloudfront.net.</p>
     """,
-    utc_deadline=datetime.datetime(2014, 8, 31, 23, 59, 0)
+    utc_deadline=datetime.datetime(2014, 8, 25, 23, 59, 0)
 )
 
 pipeline = Pipeline(
     CheckIP(),
     GetItemFromTracker("http://%s/%s" % (TRACKER_HOST, TRACKER_ID), downloader,
         VERSION),
-    PrepareDirectories(warc_prefix="quizilla"),
+    PrepareDirectories(warc_prefix="twitpic-cloudfront"),
     WgetDownload(
         WgetArgs(),
         max_tries=2,
