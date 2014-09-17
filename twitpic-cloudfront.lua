@@ -57,7 +57,7 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   
   -- consider 403 as banned from twitpic, not pernament failure
   if status_code >= 500 or
-    (status_code >= 400 and status_code ~= 404) then
+    (status_code >= 400 and status_code ~= 404 and status_code ~= 403) then
     if string.match(url["host"], "cloudfront%.net") then
       
       io.stdout:write("\nServer returned "..http_stat.statcode.." for " .. url["url"] .. ". Sleeping.\n")
